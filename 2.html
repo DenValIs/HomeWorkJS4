@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Homework</title>
 </head>
+
 <body>
-<!--
+  <!--
 Обязательное задание.
 
 Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
@@ -47,10 +49,79 @@
 что-нибудь пропустить.
 4. Если непонятно условие - задайте вопрос.
 -->
-<script>
-  "use strict";
+  <script>
+    "use strict";
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
-</script>
+    function CommonPostES5(author, text, upd) {
+      this.author = author;
+      this.text = text;
+      this.upd = new Date();
+    }
+
+    CommonPostES5.prototype.edit = function (text) {
+      this.text = text;
+      this.upd = new Date;
+    }
+
+    const commonPostES5 = new CommonPostES5(`Имя`, `Текст`);
+    console.log(commonPostES5);
+    commonPostES5.edit(`Новый текст`);
+
+    function AttachedPostES5(author, text, upd) {
+      CommonPostES5.call(this, author, text);
+      this.hightlighted = false;
+    }
+
+    AttachedPostES5.prototype = Object.create(CommonPostES5.prototype); // Считай все 1в1 как в видео. Я сам бы не додумался.
+
+    AttachedPostES5.prototype.constructor = AttachedPostES5;
+
+    AttachedPostES5.prototype.makeTextHighlighted = function () {
+      this.highlighted = true;
+      this.upd = new Date;
+    }
+
+    const attachedPostES5 = new AttachedPostES5(`Имя`, `Текст`);
+    console.log(attachedPostES5);
+    attachedPostES5.makeTextHighlighted();
+    attachedPostES5.edit(`Новый текст`);
+    console.log(attachedPostES5);
+
+    class CommonPostES6 {
+      constructor(author, text) {
+        this.author = author;
+        this.text = text;
+      }
+      edit(text) {
+        this.text = text;
+        this.date = new Date();
+      }
+    }
+
+    const commonPostES6 = new CommonPostES6(`Имя`, `Текст`);
+    console.log(commonPostES5);
+    commonPostES6.edit(`Новый текст`);
+
+    class AttachedPostES6 extends CommonPostES6 {
+      constructor(author, text) {
+        super(author, text);
+        this.highlighted = false;
+      }
+      makeTextHighlighted() {
+        this.highlighted = true;
+        this.date = new Date();
+      }
+    }
+
+
+    const attachedPostES6 = new AttachedPostES6(`Имя`, `Текст`);
+    console.log(attachedPostES5);
+    attachedPostES6.makeTextHighlighted();
+    attachedPostES6.edit(`Новый текст`);
+    console.log(attachedPostES6);
+
+
+  </script>
 </body>
+
 </html>
